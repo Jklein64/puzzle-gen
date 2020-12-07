@@ -18,8 +18,9 @@ async function main() {
 				const puzzles = IDs.map(idToGameBoard)
 				const formatted = []
 				for (const puzzle of puzzles) formatted.push(await prettyPuzzle(puzzle))
+				console.log({ formatted })
 
-				const data = JSON.stringify({ quantity, size, difficulty, IDs, puzzles, formatted })
+				const data = { quantity, size, difficulty, IDs, puzzles, formatted }
 				console.log(data)
 				res.send(data)
 			}
@@ -39,7 +40,9 @@ main()
 
 class QueryError extends Error {}
 
-function isValidRequest(query: typeof express.request.query) {
+function isValidRequest(
+	query: typeof express.request.query
+): query is { quantity: string; size: string; difficulty: string } {
 	if (typeof query.quantity !== "string")
 		throw new QueryError("Query did not provide a valid `quantity` parameter. Quantity must be of type `string`.")
 	if (!/^[0-9]+$/.test(query.quantity))
