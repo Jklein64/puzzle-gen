@@ -32,7 +32,10 @@ async function main() {
 				res.status(400).send(error.message)
 			} else {
 				console.error(error)
-				res.status(500).send("Oops! Something went wrong." + error.message)
+				console.error(error.toString())
+				console.error(error.message)
+				console.error(error.message.toString())
+				res.status(500).send("Oops! Something went wrong." + error)
 			}
 		}
 	})
