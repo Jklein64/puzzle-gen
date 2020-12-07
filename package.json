@@ -8,8 +8,7 @@
     "scripts": {
         "compile": "tsc",
         "dev": "nodemon -e ts --exec 'npm run compile'",
-        "start": "node .",
-        "python": "python soloparser.py"
+        "start": "node ."
     },
     "keywords": [],
     "author": "",

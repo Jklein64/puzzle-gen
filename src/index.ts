@@ -1,10 +1,5 @@
 import generateIDs from "./puppet.js"
-import fs from "fs"
-import { dirname, join } from "path"
-import { fileURLToPath } from "url"
-import { exec } from "child_process"
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
+import { idToGameBoard, prettyPuzzle } from "./helpers.js"
 
 async function main() {
 	const IDs = await generateIDs({
@@ -12,6 +7,13 @@ async function main() {
 		size: 9,
 		difficulty: "Trivial",
 	})
-	console.log(IDs)
+
+	if (IDs === undefined) return
+	const boards = IDs.map(idToGameBoard)
+	try {
+		console.log(await prettyPuzzle(boards[0]))
+	} catch (error) {
+		console.error(error)
+	}
 }
 main()

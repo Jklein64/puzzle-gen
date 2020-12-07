@@ -6,7 +6,8 @@
         "outDir": "./build",
         "target": "Es2017",
         "lib": ["DOM"],
-        "module": "esnext"
+        "module": "esnext",
+        "moduleResolution": "node"
     },
     "include": ["src"]
 }

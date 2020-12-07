@@ -1,5 +1,6 @@
 import fs from "fs"
 import Puppeteer from "puppeteer"
+import { spawn } from "child_process"
 
 export function findGameID() {
 	return document?.querySelector("#permalink-desc")?.getAttribute("href")?.substring(1)
@@ -48,3 +49,28 @@ export async function saveToFile(ID: string): Promise<void> {
 }
 
 export const clearFile = async () => await fs.promises.writeFile("soloids.txt", "")
+
+export function idToGameBoard(ID: string): string {
+	return ID.replace(/^.*:/, "")
+		.replace(/[a-z]/g, match => new Array("abcdefghijklmnopqrstuvwxyz".indexOf(match) + 1).fill(".").join(""))
+		.replace(/10/g, "A")
+		.replace(/11/g, "B")
+		.replace(/12/g, "C")
+		.replace(/13/g, "D")
+		.replace(/14/g, "E")
+		.replace(/15/g, "F")
+		.replace(/16/g, "G")
+		.replace(/_/g, "")
+}
+
+export async function prettyPuzzle(board: string): Promise<string> {
+	const process = spawn("python", ["-u", "./printer.py", board])
+	return new Promise((resolve, reject) => {
+		process.stdout.on("data", chunk => {
+			// -u means there will only be 1 chunk
+			resolve(chunk.toString())
+		})
+
+		process.stderr.on("data", chunk => reject(chunk))
+	})
+}
