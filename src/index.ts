@@ -19,12 +19,15 @@ async function main() {
 				const formatted = []
 				for (const puzzle of puzzles) formatted.push(await prettyPuzzle(puzzle))
 
-				res.send(JSON.stringify({ quantity, size, difficulty, IDs, puzzles, formatted }))
+				const data = JSON.stringify({ quantity, size, difficulty, IDs, puzzles, formatted })
+				console.log(data)
+				res.send(data)
 			}
 		} catch (error) {
 			if (error instanceof QueryError) {
 				res.status(400).send(error.message)
 			} else {
+				console.error(error)
 				res.status(500).send("Oops! Something went wrong." + error.message)
 			}
 		}
