@@ -17,8 +17,11 @@ async function main() {
 
 				const puzzles = IDs.map(idToGameBoard)
 				const formatted = []
-				for (const puzzle of puzzles) formatted.push(await prettyPuzzle(puzzle))
-				console.log({ formatted })
+				console.log("puzzles")
+				for (const puzzle of puzzles) {
+					console.log(puzzle)
+					formatted.push(await prettyPuzzle(puzzle))
+				}
 
 				const data = { quantity, size, difficulty, IDs, puzzles, formatted }
 				console.log(data)
