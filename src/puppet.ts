@@ -14,24 +14,11 @@ export default async function generateIDs(options: { quantity: number; size: num
 		for (let i = 0; i < options.quantity; i++) {
 			await newGame(page, { size: options.size, difficulty: options.difficulty })
 			const gameID = await page.evaluate(findGameID)
-			if (gameID) {
-				// saveToFile(gameID)
-				output.push(gameID)
-			}
+			if (gameID) output.push(gameID)
 		}
 
 		await browser.close()
 		return output
-		// browser.close().then(() => {
-		// const python = exec("npm run python")
-		// python.on("close", async (code, signal) => {
-		// 	console.log("python done")
-		// 	const output = await fs.promises.readFile(join(__dirname, "../solo_sudoku_test_cases.txt"), {
-		// 		encoding: "utf-8",
-		// 	})
-		// 	console.log(output)
-		// })
-		// })
 	} catch (e) {
 		console.error(e)
 	}
