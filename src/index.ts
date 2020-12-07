@@ -34,7 +34,6 @@ async function main() {
 				console.error(error)
 				console.error(error.toString())
 				console.error(error.message)
-				console.error(error.message.toString())
 				res.status(500).send("Oops! Something went wrong." + error)
 			}
 		}

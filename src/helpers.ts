@@ -66,11 +66,18 @@ export function idToGameBoard(ID: string): string {
 export async function prettyPuzzle(board: string): Promise<string> {
 	const process = spawn("python", ["-u", "./printer.py", board])
 	return new Promise((resolve, reject) => {
-		process.stdout.on("data", chunk => {
-			// -u means there will only be 1 chunk
-			resolve(chunk.toString())
-		})
+		const outputChunks: string[] = []
+		process.stdout.on("data", chunk => outputChunks.push(chunk.toString()))
 
-		process.stderr.on("data", chunk => reject(chunk))
+		const errorChunks: string[] = []
+		process.stderr.on("data", chunk => errorChunks.push(chunk.toString()))
+
+		process.on("close", () => {
+			if (errorChunks.length > 0) {
+				reject(errorChunks.join(""))
+			} else {
+				resolve(outputChunks.join(""))
+			}
+		})
 	})
 }

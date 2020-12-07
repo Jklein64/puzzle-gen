@@ -25,7 +25,6 @@ export default async function generateIDs(options: { quantity: number; size: num
 		console.error(error)
 		console.error(error.toString())
 		console.error(error.message)
-		console.error(error.message.toString())
 	} finally {
 		return output
 	}
