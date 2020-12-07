@@ -8,7 +8,6 @@ async function main() {
 		difficulty: "Trivial",
 	})
 
-	if (IDs === undefined) return
 	const boards = IDs.map(idToGameBoard)
 	try {
 		console.log(await prettyPuzzle(boards[0]))
