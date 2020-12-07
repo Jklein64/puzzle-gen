@@ -1,28 +1,38 @@
 import Puppeteer from "puppeteer"
-import { exec } from "child_process"
-import { clearFile, findGameID, saveToFile, newGame } from "./helpers.js"
+import { clearFile, findGameID, newGame, Difficulty } from "./helpers.js"
 
-const NUM_IDS = 10
-;(async () => {
+export default async function generateIDs(options: { quantity: number; size: number; difficulty: Difficulty }) {
 	try {
 		const browser = await Puppeteer.launch()
 		const page = await browser.newPage()
-
-		await clearFile()
 		await page.goto("https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/solo.html")
 
-		for (let i = 0; i < NUM_IDS; i++) {
+		await clearFile()
+
+		const output = []
+
+		for (let i = 0; i < options.quantity; i++) {
+			await newGame(page, { size: options.size, difficulty: options.difficulty })
 			const gameID = await page.evaluate(findGameID)
 			if (gameID) {
-				console.log(gameID)
-				saveToFile(gameID)
+				// saveToFile(gameID)
+				output.push(gameID)
 			}
-			await newGame(page)
 		}
-		browser.close().then(() => {
-			exec("python ../soloparser.py")
-		})
+
+		await browser.close()
+		return output
+		// browser.close().then(() => {
+		// const python = exec("npm run python")
+		// python.on("close", async (code, signal) => {
+		// 	console.log("python done")
+		// 	const output = await fs.promises.readFile(join(__dirname, "../solo_sudoku_test_cases.txt"), {
+		// 		encoding: "utf-8",
+		// 	})
+		// 	console.log(output)
+		// })
+		// })
 	} catch (e) {
 		console.error(e)
 	}
-})()
+}

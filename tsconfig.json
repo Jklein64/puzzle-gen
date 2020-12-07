@@ -4,8 +4,9 @@
         "esModuleInterop": true,
         "noEmitOnError": true,
         "outDir": "./build",
-        "target": "ESNext",
-        "lib": ["DOM"]
+        "target": "Es2017",
+        "lib": ["DOM"],
+        "module": "esnext"
     },
     "include": ["src"]
 }

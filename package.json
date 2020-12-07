@@ -1,21 +1,24 @@
 {
-    "name": "thing",
+    "name": "puzzle-gen",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "build/index.js",
     "type": "module",
+    "module": "build/index.js",
     "scripts": {
         "compile": "tsc",
         "dev": "nodemon -e ts --exec 'npm run compile'",
-        "start": "node build/puppet.js"
+        "start": "node .",
+        "python": "python soloparser.py"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@types/puppeteer": "^5.4.1",
         "fs": "0.0.1-security",
-        "puppeteer": "^5.5.0",
-        "selenium-webdriver": "^4.0.0-alpha.8"
+        "puppeteer": "^5.5.0"
+    },
+    "devDependencies": {
+        "@types/puppeteer": "^5.4.1"
     }
 }
