@@ -25,7 +25,7 @@ async function main() {
 			if (error instanceof QueryError) {
 				res.status(400).send(error.message)
 			} else {
-				res.status(500).send("Oops! Something went wrong.")
+				res.status(500).send("Oops! Something went wrong." + error.message)
 			}
 		}
 	})
