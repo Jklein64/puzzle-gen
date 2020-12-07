@@ -44,12 +44,6 @@ export async function newGame(page: Puppeteer.Page, options: { size: number; dif
 	return await submit.focus().then(() => submit.click())
 }
 
-export async function saveToFile(ID: string): Promise<void> {
-	return await fs.promises.appendFile("soloids.txt", `${ID}\n`)
-}
-
-export const clearFile = async () => await fs.promises.writeFile("soloids.txt", "")
-
 export function idToGameBoard(ID: string): string {
 	return ID.replace(/^.*:/, "")
 		.replace(/[a-z]/g, match => new Array("abcdefghijklmnopqrstuvwxyz".indexOf(match) + 1).fill(".").join(""))

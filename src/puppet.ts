@@ -1,5 +1,5 @@
 import Puppeteer from "puppeteer"
-import { clearFile, findGameID, newGame, Difficulty } from "./helpers.js"
+import { findGameID, newGame, Difficulty } from "./helpers.js"
 
 export default async function generateIDs(options: { quantity: number; size: number; difficulty: Difficulty }) {
 	const output = []
@@ -11,8 +11,6 @@ export default async function generateIDs(options: { quantity: number; size: num
 		})
 		const page = await browser.newPage()
 		await page.goto("https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/solo.html")
-
-		await clearFile()
 
 		for (let i = 0; i < options.quantity; i++) {
 			await newGame(page, { size: options.size, difficulty: options.difficulty })
