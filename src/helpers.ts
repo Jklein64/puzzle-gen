@@ -64,7 +64,7 @@ export function idToGameBoard(ID: string): string {
 }
 
 export async function prettyPuzzle(board: string): Promise<string> {
-	const process = spawn("python", ["-u", "./printer.py", board])
+	const process = spawn("python3", ["-u", "./printer.py", board])
 	return new Promise((resolve, reject) => {
 		const outputChunks: string[] = []
 		process.stdout.on("data", chunk => outputChunks.push(chunk.toString()))
