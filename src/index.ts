@@ -2,8 +2,14 @@ import generateIDs from "./puppet.js"
 import { Difficulty, idToGameBoard, prettyPuzzle } from "./helpers.js"
 import express from "express"
 
+import { dirname, join } from "path"
+import { fileURLToPath } from "url"
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
 async function main() {
 	const app = express()
+	app.use(express.static(join(__dirname, "../public")))
 	app.get("/api/v1/", async (req, res) => {
 		try {
 			if (isValidRequest(req.query)) {
@@ -17,14 +23,14 @@ async function main() {
 
 				const puzzles = IDs.map(idToGameBoard)
 				const formatted = []
-				console.log("puzzles")
+				// console.log("puzzles")
 				for (const puzzle of puzzles) {
-					console.log(puzzle)
+					// console.log(puzzle)
 					formatted.push(await prettyPuzzle(puzzle))
 				}
 
 				const data = { quantity, size, difficulty, IDs, puzzles, formatted }
-				console.log(data)
+				// console.log(data)
 				res.send(data)
 			}
 		} catch (error) {
