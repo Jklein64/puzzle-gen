@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Puzzle Gen | Demo</title>
+	</head>
+	<body>
+		<a href="./">back</a>
+		<h1>This is a demo of the generator in action!</h1>
+		<h3>Inspect this page to see how I use the API.</h3>
+		<code style="white-space: pre" id="output"></code>
+		<script type="module">
+			fetch(`${window.location.origin}/api/v1?quantity=1&size=9&difficulty=Trivial`, {
+				mode: "no-cors",
+			})
+				.then(raw => raw.text())
+				.then(text => JSON.parse(text))
+				.then(({ formatted }) => (document.getElementById("output").innerHTML = formatted[0]))
+		</script>
+	</body>
+</html>
