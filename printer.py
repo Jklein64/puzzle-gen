@@ -42,7 +42,7 @@ def pad(s: str) -> str:
     right_s = floor(spaces/2)
     return " " + " "*left_s + s + " "*right_s + " "
 
-rows = ["||".join("|".join(pad(c) for c in ch) for ch in r)
+rows = ["||".join("|".join(pad(c if len(c) == 1 else ".") for c in ch) for ch in r)
         for r in [chunk(row, size//sub_w) for row in chunk(board, size)]]
 formatted = ("\n"+"="*len(rows[0])+"\n").join(
     "\n".join(c) for c in chunk(rows, size//sub_h))
